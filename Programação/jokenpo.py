@@ -25,7 +25,7 @@ first_turn = 0
 
 #aqui escrevemos o head do nosso csv
 with open('jokenpo.csv', 'w', newline='') as csvfile:
-        campos_head=['historico', 'vitorias']
+        campos_head=['historico_do_usuario', 'vitorias_do_usuario']
         writer = csv.DictWriter(csvfile, fieldnames=campos_head)
         writer.writeheader()
 
@@ -34,7 +34,14 @@ with open('jokenpo.csv', 'w', newline='') as csvfile:
 
 
 print('Bem vindo ao Jokenpo')
-lance = int(input('Digite 0 para pedra, 1 para papel, 2 para tesoura, 3 para encerrar o jogo '))
+lance = input('Digite pedra, papel ou tesoura. Ou digite 3 para encerrar o jogo ')
+#Aqui nós adicionamos o lance a variavel respectiva
+if jf.jokenpoConverter(lance) == 0:
+        pedra.append(0)
+elif jf.jokenpoConverter(lance) == 1:
+    papel.append(1)
+else:
+    tesoura.append(2)
 
 
 #aqui nos definimos lances aleatorios até termos uma base de dados boa
@@ -51,32 +58,32 @@ else:
 #não precisava da linha 54, so fiz para melhorar a compreensão
 
 #aqui nos processamos o resultado e colocamos a saída na variável 'res'
-print(lance_maquina)
-res = jf.jokenpoResult(lance, lance_maquina)
+print(f'A maquina joga: {jf.jokenpoConverter(lance_maquina)}')
+res = jf.jokenpoResult(jf.jokenpoConverter(lance), lance_maquina)
 
 #aqui nos processamos o resultado para definir como o programa irá proceder
 if res == 'victory':
     plays.append(lance)
     with open('jokenpo.csv', 'a+', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=campos_head)
-        writer.writerow({'historico':plays, 'vitorias': 1})
+        writer.writerow({'historico_do_usuario':plays, 'vitorias_do_usuario': 1})
     plays = []
 
 elif res == 'defeat':
     plays.append(lance)
     with open('jokenpo.csv', 'a+', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=campos_head)
-        writer.writerow({'historico': plays, 'vitorias': 1})
+        writer.writerow({'historico_do_usuario': plays, 'vitorias_do_usuario': 1})
     plays = []
 elif res == 'draw':
     plays.append(lance)
     
 
 while lance != 3:
-    lance = int(input('Digite 0 para pedra, 1 para papel, 2 para tesoura, 3 para encerrar o jogo '))
-    if lance == 0:
+    lance = input('Digite pedra, papel ou tesoura. Ou digite 3 para encerrar o jogo ')
+    if jf.jokenpoConverter(lance) == 0:
         pedra.append(0)
-    elif lance == 1:
+    elif jf.jokenpoConverter(lance) == 1:
         papel.append(1)
     else:
         tesoura.append(2)
@@ -86,23 +93,21 @@ while lance != 3:
     else:
         lance_mais_provavel = jf.probabilityJokenpo(pedra, papel, tesoura)
         lance_maquina = lance_mais_provavel
-    print(lance_maquina)
-    res = jf.jokenpoResult(lance, lance_maquina)
+    print(f'A maquina joga: {jf.jokenpoConverter(lance_maquina)}')
+    res = jf.jokenpoResult(jf.jokenpoConverter(lance), lance_maquina)
 
     if res == 'victory':
         plays.append(lance)
         with open('jokenpo.csv', 'a+', newline='') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=campos_head)
-            str(plays)
-            writer.writerow({'historico':plays, 'vitorias': 1})
+            writer.writerow({'historico_do_usuario':plays, 'vitorias_do_usuario': 1})
         plays = []
 
     elif res == 'defeat':
         plays.append(lance)
         with open('jokenpo.csv', 'a+', newline='') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=campos_head)
-            str(plays)
-            writer.writerow({'historico':plays, 'vitorias': 0})
+            writer.writerow({'historico_do_usuario':plays, 'vitorias_do_usuario': 0})
         plays = []
     elif res == 'draw':
         plays.append(lance)

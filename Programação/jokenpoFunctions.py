@@ -40,6 +40,21 @@ def jokenpoResult(lance1 = int, lance2 = int):
         print('empate')
         return 'draw'
     return False
+
+def jokenpoConverter(lance=int):
+    if lance == 'pedra':
+        return 0
+    elif lance == 'papel':
+        return 1
+    elif lance == 'tesoura':
+        return 2
+    elif lance == 0:
+        return 'pedra'
+    elif lance == 1:
+        return 'papel'
+    elif lance == 2:
+        return 'tesoura'
     
+    return False    
 
             
