@@ -1,19 +1,18 @@
 from random import randint
 import jokenpoFunctions as jf
 import csv
-import pandas
 
 #aqui guardamos o historico de jogos
 plays = []
 
 # uma variavel que guarda a quantidade de vezes que pedra foram jogadas
-pedra = []
+pedra = 0
 
 # uma variavel que guarda a quantidade de vezes que papel foram jogadas
-papel = []
+papel = 0
 
 # uma variavel que guarda a quantidade de vezes que tesoura foram jogadas
-tesoura = []
+tesoura = 0
 
 
 #jokenpo é o historico inteiro das jogadas da MAQUINA em 1 rodada
@@ -37,15 +36,15 @@ print('Bem vindo ao Jokenpo')
 lance = input('Digite pedra, papel ou tesoura. Ou digite 3 para encerrar o jogo ')
 #Aqui nós adicionamos o lance a variavel respectiva
 if jf.jokenpoConverter(lance) == 0:
-        pedra.append(0)
+        pedra += 1
 elif jf.jokenpoConverter(lance) == 1:
-    papel.append(1)
+    papel += 1
 else:
-    tesoura.append(2)
+    tesoura += 1
 
 
 #aqui nos definimos lances aleatorios até termos uma base de dados boa
-if len(papel) + len(pedra) + len(tesoura) < 5:
+if papel + pedra + tesoura < 5:
     lance_maquina = randint(0, 2)
 
     
@@ -82,12 +81,12 @@ elif res == 'draw':
 while lance != 3:
     lance = input('Digite pedra, papel ou tesoura. Ou digite 3 para encerrar o jogo ')
     if jf.jokenpoConverter(lance) == 0:
-        pedra.append(0)
+        pedra += 1
     elif jf.jokenpoConverter(lance) == 1:
-        papel.append(1)
+        papel += 1
     else:
-        tesoura.append(2)
-    if len(papel) + len(pedra) + len(tesoura) < 5:
+        tesoura += 1
+    if papel + pedra + tesoura < 5:
         lance_maquina = randint(0, 2)
         
     else:

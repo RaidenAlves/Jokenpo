@@ -1,9 +1,14 @@
 import random 
 #aqui temos uma função que pega o total de pedra, papel e tesoura, e faz uma média de quanto cada um apareceu, depois ela retorna a probabilidade de cada um acontecer
 def probabilityJokenpo(pedra, papel, tesoura):
-    lst = pedra + papel + tesoura
-    print(lst)
-    return counterDoLance(random.choice(lst))
+    total = pedra + papel + tesoura
+    sorteio = random.randint(1, total)
+    if sorteio <= pedra:
+        return counterDoLance(0)
+    elif sorteio > pedra and sorteio <= (pedra + papel):
+        return counterDoLance(1)
+    else: 
+        return counterDoLance(2)
 
 #aqui temos uma função que entrega o lance vitórioso contra um lance previsto
 #0 é pedra, 1 é papel, 2 é tesoura
